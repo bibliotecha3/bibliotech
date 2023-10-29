@@ -13,7 +13,7 @@ CREATE TABLE users_bibliotech(
 CREATE TABLE livros(
 id_livros INT PRIMARY KEY AUTO_INCREMENT,
 nome VARCHAR(100),
-autor INT(10),
+autor VARCHAR(100),
 genero VARCHAR(20),
-paginas DECIMAL(1000,5)
+paginas VARCHAR(100)
 );
