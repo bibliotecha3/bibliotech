@@ -110,11 +110,23 @@ public class LoginTela extends javax.swing.JFrame {
         String login = loginTextField.getText();
         //pega a senha do usuário como char[] e converte para String
         String senha = new String (senhaPasswordField.getPassword());
-        //verifica se o usuário é válido
-        if (login.equals("admin") && senha.equals("admin"))
-        JOptionPane.showMessageDialog(null, "Bem vindo");
-        else
-        JOptionPane.showMessageDialog(null, "Usuário Inválido");
+        try{
+ //verifica se o usuário é válido
+ Usuario usuario = new Usuario (login, senha);
+ DAO dao = new DAO();
+ if (dao.existe(usuario)){
+ JOptionPane.showMessageDialog (null, "Bem vindo, " +
+usuario.getNome() + "!");
+ }
+ else{
+ JOptionPane.showMessageDialog(null, "Usuário inválido");
+ }
+ }
+ catch (Exception e){
+ JOptionPane.showMessageDialog (null, "Problemas técnicos. Tente novamente mais tarde");
+ e.printStackTrace();
+ }
+ 
     }//GEN-LAST:event_loginButtonActionPerformed
 
     private void sairButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sairButtonActionPerformed
