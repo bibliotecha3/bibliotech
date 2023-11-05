@@ -1,0 +1,10 @@
+- Active: 1699035819376@@projetobilbiotech-bibliotecha3.a.aivencloud.com@17243
+CREATE DATABASE users_bibliotech;
+-- USE users_bibliotech;
+-- DROP DATABASE users_bibliotech;
+CREATE TABLE users_bibliotech(
+	cod_pessoa INT PRIMARY KEY,
+	nome VARCHAR(100),
+    senha VARCHAR(50)
+    );
+    INSERT INTO users_bibliotech (cod_pessoa, nome, senha) VALUES (1, 'admin', 'admin');
