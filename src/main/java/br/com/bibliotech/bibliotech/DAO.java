@@ -24,4 +24,30 @@ public class DAO {
    }
   }
  }
+    public Livros [] obterLivros () throws Exception{
+     String sql = "SELECT * FROM tb_livros";
+    try (Connection conn = ConexaoBD.obterConexao();
+    PreparedStatement ps =
+    conn.prepareStatement(sql,
+     ResultSet.TYPE_SCROLL_INSENSITIVE,
+     ResultSet.CONCUR_READ_ONLY);
+    ResultSet rs = ps.executeQuery()){
+
+    int totalDeLivros = rs.last () ? rs.getRow() : 0;
+    Livros [] livros = new Livros[totalDeLivros];
+    rs.beforeFirst();
+    int contador = 0;
+    while (rs.next()){
+    int id = rs.getInt("id");
+    String nome = rs.getString("nome");
+    String autor = rs.getString ("autor");
+    String editora = rs.getString ("editora");
+    String genero = rs.getString ("genero");
+    String paginas = rs.getString ("paginas");
+    livros[contador++] = new Livros (id, nome, autor, editora, genero, paginas);
+    }
+    return livros;
+    }
+ }
+   
 }

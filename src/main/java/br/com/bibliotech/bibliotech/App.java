@@ -13,9 +13,6 @@ import java.util.Properties;
  * @author unity
  */
 public class App {
-    import.java.util.Properties;
-    import.java.io.FileInputStream;
-    import.java.io.File;
     public static void main(String[] argos) throws Exception{
     Properties properties = new Properties();
     properties.load(new FileInputStream(new File("conf.properties")));

@@ -15,7 +15,7 @@ public class DashboardTela extends javax.swing.JFrame {
      * Creates new form DashboardTela
      */
     public DashboardTela() {
-        super ("Cadastro de cursos e alunos");
+        super ("Cadastro de livros e alunos");
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -30,36 +30,46 @@ public class DashboardTela extends javax.swing.JFrame {
     private void initComponents() {
 
         bibliotechPanel = new javax.swing.JPanel();
-        gerenciarcadastrosButton = new javax.swing.JButton();
-        derenciarlivrosButton = new javax.swing.JButton();
+        cadastrarUsuarioButton = new javax.swing.JButton();
+        cadastrarLivrosButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         bibliotechPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.MatteBorder(null), "Gerencie os cadastros de Livros e Usuários"));
 
-        gerenciarcadastrosButton.setText("Gerenciar Cadastros");
+        cadastrarUsuarioButton.setText("Cadastrar Usuários");
+        cadastrarUsuarioButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cadastrarUsuarioButtonActionPerformed(evt);
+            }
+        });
 
-        derenciarlivrosButton.setText("Gerenciar Livros");
+        cadastrarLivrosButton.setText("Cadastrar Livros");
+        cadastrarLivrosButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cadastrarLivrosButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout bibliotechPanelLayout = new javax.swing.GroupLayout(bibliotechPanel);
         bibliotechPanel.setLayout(bibliotechPanelLayout);
         bibliotechPanelLayout.setHorizontalGroup(
             bibliotechPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bibliotechPanelLayout.createSequentialGroup()
-                .addContainerGap(24, Short.MAX_VALUE)
+                .addContainerGap(29, Short.MAX_VALUE)
                 .addGroup(bibliotechPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(derenciarlivrosButton, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(gerenciarcadastrosButton, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(17, 17, 17))
+                    .addComponent(cadastrarLivrosButton, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cadastrarUsuarioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26))
         );
         bibliotechPanelLayout.setVerticalGroup(
             bibliotechPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bibliotechPanelLayout.createSequentialGroup()
-                .addContainerGap(40, Short.MAX_VALUE)
-                .addComponent(derenciarlivrosButton, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(60, Short.MAX_VALUE)
+                .addComponent(cadastrarLivrosButton, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(gerenciarcadastrosButton, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(63, 63, 63))
+                .addComponent(cadastrarUsuarioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(61, 61, 61))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -67,20 +77,30 @@ public class DashboardTela extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(59, 59, 59)
+                .addGap(56, 56, 56)
                 .addComponent(bibliotechPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
+                .addContainerGap()
                 .addComponent(bibliotechPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cadastrarUsuarioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarUsuarioButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cadastrarUsuarioButtonActionPerformed
+
+    private void cadastrarLivrosButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarLivrosButtonActionPerformed
+    LivrosTela ct = new LivrosTela();
+    ct.setVisible(true);
+    this.dispose();
+    }//GEN-LAST:event_cadastrarLivrosButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -119,7 +139,7 @@ public class DashboardTela extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bibliotechPanel;
-    private javax.swing.JButton derenciarlivrosButton;
-    private javax.swing.JButton gerenciarcadastrosButton;
+    private javax.swing.JButton cadastrarLivrosButton;
+    private javax.swing.JButton cadastrarUsuarioButton;
     // End of variables declaration//GEN-END:variables
 }

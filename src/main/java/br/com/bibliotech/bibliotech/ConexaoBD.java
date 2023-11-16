@@ -13,15 +13,15 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class ConexaoBD {
-    private static String host = "localhost";
-    private static String porta = "3306";
-    private static String db = "seubd";
-    private static String usuario = "seusuario";
-    private static String senha = "suasenha";
+    private static String host = "projetobilbiotech-bibliotecha3.a.aivencloud.com";
+    private static String porta = "17243";
+    private static String db = "defaultdb";
+    private static String usuario = "avnadmin";
+    private static String senha = "AVNS_jSNGniC83B5x0r57XgI";
 
     public static Connection obterConexao () throws Exception{
     String url = String.format(
- "jdbc:mysql://%s:%s/%s",
+ "jdbc:postgresql://%s:%s/%s",
  host,
  porta,
  db
