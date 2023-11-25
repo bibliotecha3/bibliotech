@@ -49,5 +49,38 @@ public class DAO {
     return livros;
     }
  }
-   
+    public void inserirLivros (Livros livro) throws Exception{
+    String sql = "INSERT INTO tb_livros (nome, autor, editora, genero, paginas) VALUES (?, ?, ?, ?, ?)";
+    try (Connection conexao = ConexaoBD.obterConexao();
+    PreparedStatement ps = conexao.prepareStatement(sql)){
+    ps.setString(1, livro.getNome());
+    ps.setString(2, livro.getAutor());
+    ps.setString(3, livro.getEditora());
+    ps.setString(4, livro.getGenero());
+    ps.setString(5, livro.getPaginas());
+    ps.execute();
+    }
+}
+     public void atualizarLivros (Livros livro) throws Exception{
+    String sql = "UPDATE tb_livros SET nome = ?, autor = ?, editora = ?, genero = ?, paginas = ? WHERE id = ?";
+    try (Connection conexao = ConexaoBD.obterConexao();
+    PreparedStatement ps = conexao.prepareStatement(sql)){
+    ps.setString (1, livro.getNome());
+    ps.setString (2, livro.getAutor());
+    ps.setString (3, livro.getEditora());
+    ps.setString (4, livro.getGenero());
+    ps.setString (5, livro.getPaginas());
+    ps.setInt (6, livro.getId());
+    ps.execute();
+ }
+ }
+     public void removerLivros (Livros livro) throws Exception{
+ String sql = "DELETE FROM tb_livros WHERE id = ?";
+ try (Connection conexao = ConexaoBD.obterConexao();
+ PreparedStatement ps = conexao.prepareStatement(sql);){
+ ps.setInt (1, livro.getId());
+ ps.execute();
+ }
+ }
+
 }

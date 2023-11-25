@@ -65,4 +65,17 @@ public Livros (int id, String nome, String autor, String editora, String genero,
  return this.nome;
 }
 
+    String getTipo() {
+        throw new UnsupportedOperationException("Not supported yet."); 
+    }
+public Livros (String nome, String autor, String editora, String genero, String paginas){
+ this.nome = nome;
+ this.autor = autor;
+ this.editora = editora;
+ this.genero = genero;
+ this.paginas = paginas;
+}
+public Livros (int id){
+ this.id = id;
+    }
 }
