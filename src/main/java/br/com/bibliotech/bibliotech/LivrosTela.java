@@ -4,15 +4,18 @@
  */
 package br.com.bibliotech.bibliotech;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+
 
 /**
  *
  * @author unity
  */
 public class LivrosTela extends javax.swing.JFrame {
-
     /**
      * Creates new form LivrosTela
      */
@@ -25,15 +28,15 @@ public class LivrosTela extends javax.swing.JFrame {
   private void buscarLivros (){
  try{
  DAO dao = new DAO();
- Livros [] livros = dao.obterLivros();
- livrosComboBox.setModel(new DefaultComboBoxModel<>(livros));
+ Livros [] livro = dao.obterLivros();
+ livrosComboBox.setModel(new DefaultComboBoxModel<>(livro));
  }
  catch (Exception e){
  JOptionPane.showMessageDialog(null, "Livros indisponíveis, tente novamente mais tarde.");
  e.printStackTrace();
     }
- }
-
+}
+ 
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -44,6 +47,7 @@ public class LivrosTela extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLayeredPane1 = new javax.swing.JLayeredPane();
         livrosPanel = new javax.swing.JPanel();
         idLivroTextField = new javax.swing.JTextField();
         nomeLivroTextField = new javax.swing.JTextField();
@@ -54,8 +58,19 @@ public class LivrosTela extends javax.swing.JFrame {
         atualizarLivroButton = new javax.swing.JButton();
         removerLivroButton = new javax.swing.JButton();
         cancelarLivroButton = new javax.swing.JButton();
-        generoLivroTextField1 = new javax.swing.JTextField();
+        generoLivroTextField = new javax.swing.JTextField();
         livrosComboBox = new javax.swing.JComboBox<>();
+
+        javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
+        jLayeredPane1.setLayout(jLayeredPane1Layout);
+        jLayeredPane1Layout.setHorizontalGroup(
+            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jLayeredPane1Layout.setVerticalGroup(
+            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -82,17 +97,37 @@ public class LivrosTela extends javax.swing.JFrame {
         paginasLivroTextField.setBorder(javax.swing.BorderFactory.createTitledBorder("Número de Páginas"));
 
         adicionarLivroButton.setText("Novo");
+        adicionarLivroButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adicionarLivroButtonActionPerformed(evt);
+            }
+        });
 
         atualizarLivroButton.setText("Atualizar");
+        atualizarLivroButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                atualizarLivroButtonActionPerformed(evt);
+            }
+        });
 
         removerLivroButton.setText("Remover");
+        removerLivroButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removerLivroButtonActionPerformed(evt);
+            }
+        });
 
         cancelarLivroButton.setText("Cancelar");
-
-        generoLivroTextField1.setBorder(javax.swing.BorderFactory.createTitledBorder("Gênero"));
-        generoLivroTextField1.addActionListener(new java.awt.event.ActionListener() {
+        cancelarLivroButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                generoLivroTextField1ActionPerformed(evt);
+                cancelarLivroButtonActionPerformed(evt);
+            }
+        });
+
+        generoLivroTextField.setBorder(javax.swing.BorderFactory.createTitledBorder("Gênero"));
+        generoLivroTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                generoLivroTextFieldActionPerformed(evt);
             }
         });
 
@@ -114,7 +149,7 @@ public class LivrosTela extends javax.swing.JFrame {
                     .addComponent(autorLivroTextField)
                     .addComponent(editoraLivroTextField)
                     .addComponent(paginasLivroTextField)
-                    .addComponent(generoLivroTextField1)
+                    .addComponent(generoLivroTextField)
                     .addGroup(livrosPanelLayout.createSequentialGroup()
                         .addGroup(livrosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(adicionarLivroButton, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -140,7 +175,7 @@ public class LivrosTela extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(editoraLivroTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(generoLivroTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(generoLivroTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(paginasLivroTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -182,13 +217,117 @@ public class LivrosTela extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_editoraLivroTextFieldActionPerformed
 
-    private void generoLivroTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generoLivroTextField1ActionPerformed
+    private void generoLivroTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generoLivroTextFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_generoLivroTextField1ActionPerformed
+    }//GEN-LAST:event_generoLivroTextFieldActionPerformed
 
     private void livrosComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_livrosComboBoxActionPerformed
-        // TODO add your handling code here:
+    Livros livro = (Livros) livrosComboBox.getSelectedItem();
+    idLivroTextField.setText(Integer.toString(livro.getId()));
+    nomeLivroTextField.setText(livro.getNome());
+    autorLivroTextField.setText(livro.getAutor());
+    editoraLivroTextField.setText(livro.getEditora());
+    generoLivroTextField.setText(livro.getGenero());
+    paginasLivroTextField.setText(livro.getPaginas());
     }//GEN-LAST:event_livrosComboBoxActionPerformed
+
+    private void adicionarLivroButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adicionarLivroButtonActionPerformed
+ String nomeLivros = nomeLivroTextField.getText();
+ String autorLivros = autorLivroTextField.getText();
+ String editoraLivros = editoraLivroTextField.getText();
+ String generoLivros = generoLivroTextField.getText();
+ String paginasLivros = paginasLivroTextField.getText();    
+ if (nomeLivros == null || nomeLivros.length() == 0 ||
+     autorLivros == null || autorLivros.length() == 0 ||
+     editoraLivros == null || editoraLivros.length() == 0 ||
+     generoLivros == null || generoLivros.length() == 0 ||
+     paginasLivros == null || paginasLivros.length() == 0){
+ JOptionPane.showMessageDialog (null, "Preencha os dados do livro");
+ }
+ else{
+    try{
+    int escolha = JOptionPane.showConfirmDialog(null, "Confirmar cadastro do novo livro?");
+    if (escolha == JOptionPane.YES_OPTION){
+    }
+ Livros livro = new Livros ( nomeLivros, autorLivros, editoraLivros, generoLivros, paginasLivros);   
+ DAO dao = new DAO();
+ dao.inserirLivros(livro);
+ JOptionPane.showMessageDialog(null, "Livro cadastrado com sucesso");
+ buscarLivros();
+ nomeLivroTextField.setText("");
+ autorLivroTextField.setText("");
+ editoraLivroTextField.setText("");
+ generoLivroTextField.setText("");
+ paginasLivroTextField.setText("");
+  }       
+    catch (Exception e){
+ JOptionPane.showMessageDialog(null, "Falha técnica, tente mais tarde");
+ e.printStackTrace();
+        }
+    }
+ 
+
+    }//GEN-LAST:event_adicionarLivroButtonActionPerformed
+
+    private void atualizarLivroButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atualizarLivroButtonActionPerformed
+    int escolha = JOptionPane.showConfirmDialog(null, "Atualizar livro?");
+ if (escolha == JOptionPane.YES_OPTION){
+ try{
+ int id = Integer.parseInt (idLivroTextField.getText());
+ String nome = nomeLivroTextField.getText();
+ String autor = autorLivroTextField.getText();
+ String editora = editoraLivroTextField.getText();
+ String genero = generoLivroTextField.getText();
+ String paginas = paginasLivroTextField.getText();
+
+ Livros livro = new Livros (id, nome, autor, editora, genero, paginas);
+ DAO dao = new DAO();
+ dao.atualizarLivros(livro);
+ JOptionPane.showMessageDialog(null, "Livro atualizado com sucesso");
+ buscarLivros();
+ idLivroTextField.setText("");
+ nomeLivroTextField.setText("");
+ autorLivroTextField.setText("");
+ editoraLivroTextField.setText("");
+ generoLivroTextField.setText("");
+ paginasLivroTextField.setText("");
+ }
+ catch (Exception e){
+ JOptionPane.showMessageDialog(null, "Falha técnica. Tente novamente mais tarde.");
+ e.printStackTrace();
+            }
+        }
+    }//GEN-LAST:event_atualizarLivroButtonActionPerformed
+
+    private void removerLivroButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerLivroButtonActionPerformed
+    int escolha = JOptionPane.showConfirmDialog(null, "Remover livro?");
+    if (escolha == JOptionPane.YES_OPTION){
+    try{
+    int id = Integer.parseInt (idLivroTextField.getText());
+    Livros livro = new Livros (id);
+    DAO dao = new DAO();
+    dao.removerLivros(livro);
+    JOptionPane.showMessageDialog(null, "Livro removido com sucesso!");
+    buscarLivros();
+    nomeLivroTextField.setText("");
+    autorLivroTextField.setText("");
+    editoraLivroTextField.setText("");
+    generoLivroTextField.setText("");
+    paginasLivroTextField.setText("");
+    idLivroTextField.setText("");
+    }
+    catch (Exception e){
+    JOptionPane.showMessageDialog(null, "Falha técnica. Tente novamente mais tarde.");
+    e.printStackTrace();
+            }
+        }
+    }//GEN-LAST:event_removerLivroButtonActionPerformed
+
+    private void cancelarLivroButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarLivroButtonActionPerformed
+    DashboardTela dt = new DashboardTela();
+    dt.setVisible(true);
+    this.dispose();
+    }//GEN-LAST:event_cancelarLivroButtonActionPerformed
    
     /**
      * @param args the command line arguments
@@ -223,6 +362,7 @@ public class LivrosTela extends javax.swing.JFrame {
                 new LivrosTela().setVisible(true);
             }
         });
+       
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -231,8 +371,9 @@ public class LivrosTela extends javax.swing.JFrame {
     private javax.swing.JTextField autorLivroTextField;
     private javax.swing.JButton cancelarLivroButton;
     private javax.swing.JTextField editoraLivroTextField;
-    private javax.swing.JTextField generoLivroTextField1;
+    private javax.swing.JTextField generoLivroTextField;
     private javax.swing.JTextField idLivroTextField;
+    private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JComboBox<Livros> livrosComboBox;
     private javax.swing.JPanel livrosPanel;
     private javax.swing.JTextField nomeLivroTextField;
